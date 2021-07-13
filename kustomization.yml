@@ -1,0 +1,13 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - server/
+
+images:
+  - name: gitlab-runner
+    newName: docker.io/gitlab/gitlab-runner
+    newTag: "alpine-v14.0.1"
+
+...

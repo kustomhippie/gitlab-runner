@@ -1,0 +1,60 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - serviceaccount.yml
+  - role.yml
+  - rolebinding.yml
+  - deployment.yml
+
+configMapGenerator:
+  - name: gitlab-runner
+    literals:
+      - RUNNER_EXECUTOR=kubernetes
+      - RUNNER_SHELL=bash
+      - RUNNER_REQUEST_CONCURRENCY=1
+      - RUNNER_OUTPUT_LIMIT=4096
+
+      - REGISTER_LOCKED=true
+
+      - KUBERNETES_IMAGE=docker.io/library/alpine:latest
+      - KUBERNETES_PRIVILEGED=true
+      - KUBERNETES_NAMESPACE=default
+      - KUBERNETES_POLL_TIMEOUT=180
+      - KUBERNETES_PULL_POLICY=if-not-present
+
+      - KUBERNETES_CPU_LIMIT=2
+      - KUBERNETES_CPU_LIMIT_OVERWRITE_MAX_ALLOWED=
+      - KUBERNETES_CPU_REQUEST=100m
+      - KUBERNETES_CPU_REQUEST_OVERWRITE_MAX_ALLOWED=
+
+      - KUBERNETES_MEMORY_LIMIT=2048Mi
+      - KUBERNETES_MEMORY_LIMIT_OVERWRITE_MAX_ALLOWED=
+      - KUBERNETES_MEMORY_REQUEST=128Mi
+      - KUBERNETES_MEMORY_REQUEST_OVERWRITE_MAX_ALLOWED=
+
+      - KUBERNETES_SERVICE_ACCOUNT=
+
+      - KUBERNETES_SERVICE_CPU_LIMIT=200m
+      - KUBERNETES_SERVICE_CPU_REQUEST=100m
+      - KUBERNETES_SERVICE_MEMORY_LIMIT=256Mi
+      - KUBERNETES_SERVICE_MEMORY_REQUEST=128Mi
+
+      - KUBERNETES_HELPER_CPU_LIMIT=200m
+      - KUBERNETES_HELPER_CPU_REQUEST=100m
+      - KUBERNETES_HELPER_MEMORY_LIMIT=256Mi
+      - KUBERNETES_HELPER_MEMORY_REQUEST=128Mi
+      - KUBERNETES_HELPER_IMAGE=
+
+  - name: gitlab-scripts
+    files:
+      - entrypoint=scripts/entrypoint.sh
+      - config.toml=scripts/config.toml
+      - configure=scripts/configure.sh
+      - register-the-runner=scripts/register-the-runner.sh
+      - check-liveness=scripts/check-liveness.sh
+      - check-readiness=scripts/check-readiness.sh
+      - pre-entrypoint-script=scripts/pre-entrypoint-script.sh
+
+...

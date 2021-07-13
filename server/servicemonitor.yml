@@ -1,0 +1,22 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+
+metadata:
+  name: gitlab-runner
+  labels:
+    app.kubernetes.io/name: gitlab-runner
+    app.kubernetes.io/component: runner
+
+spec:
+  endpoints:
+    - port: metrics
+      scheme: http
+      interval: 30s
+
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: gitlab-runner
+      app.kubernetes.io/component: runner
+
+...
