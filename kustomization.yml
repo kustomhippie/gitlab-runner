@@ -8,6 +8,6 @@ resources:
 images:
   - name: gitlab-runner
     newName: docker.io/gitlab/gitlab-runner
-    newTag: "alpine-v14.0.1"
+    newTag: "ubuntu-v14.0.1"
 
 ...
