@@ -18,7 +18,7 @@ configMapGenerator:
 
       - REGISTER_LOCKED=true
 
-      - KUBERNETES_IMAGE=docker.io/library/ubuntu:latest
+      - KUBERNETES_IMAGE=library/ubuntu:latest
       - KUBERNETES_PRIVILEGED=true
       - KUBERNETES_NAMESPACE=default
       - KUBERNETES_POLL_TIMEOUT=180
