@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.0](https://github.com/kustomhippie/gitlab-runner/compare/v1.0.0...v2.0.0) (2023-07-17)
+
+
+### Features
+
+* **major:** update actionhippie/kustomize action to v2 ([b29f70c](https://github.com/kustomhippie/gitlab-runner/commit/b29f70c6338ce5a00f77199113b9c88732cee948))
+
 ## 1.0.0 (2023-06-05)
 
 
